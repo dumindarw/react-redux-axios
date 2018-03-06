@@ -12,6 +12,7 @@ import thunk from 'redux-thunk'; //API support
 
 import {Provider} from 'react-redux'; //let App access to store
 
+
 const allStoreEnhancerMW = compose(
   applyMiddleware(thunk),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

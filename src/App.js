@@ -3,6 +3,7 @@ import './App.css';
 
 //import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {createSelector} from 'reselect';
 import {updateUser, getUsersAPIrequest} from './actions/userActions'
 import {getPostsAPIrequest} from './actions/postsActions'
 
@@ -41,11 +42,31 @@ class App extends Component {
 }
 
 //connect 'received state from store' to componenet
-const mapStateToProps = (state, props) => ({
+/*const mapStateToProps = (state, props) => ({
   users : state.users,
   posts : state.posts,
   newProp:props.aRandomProp
-});
+});*/
+
+const postsSelector = createSelector(
+  state => state.posts,
+  posts => posts
+);
+
+const usersSelector = createSelector(
+  state => state.users,
+  users => users
+);
+
+//connect 'received state from store' to componenet - using selectors
+const mapStateToProps = createSelector(
+  postsSelector,/*selecters are composable*/
+  usersSelector,
+  (posts, users) => ({
+    posts,
+    users
+  })
+);
 
 //dispatch actions to component
 const mapActionsToProps = /*(dispatch, props) =>*/ {
